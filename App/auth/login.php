@@ -30,7 +30,7 @@ if (!empty($_SESSION['user_id'])) {
     $role = $_SESSION['user_role'] ?? 'student';
 
     if ($role === 'student') {
-        header('Location: ../student/dashboard.php');
+        header('Location: ../student/');
     } elseif ($role === 'recruiter') {
         header('Location: ../recruiter/');
     } elseif ($role === 'moderator') {
@@ -87,13 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     // Redirect based on role
                     if ($role === 'student') {
-                        header('Location: App/student/dashboard.php');
+                        header('Location: App/student/');
                     } elseif ($role === 'recruiter') {
-                        header('Location: App/recruiter/browse.php');
+                        header('Location: App/recruiter/');
                     } elseif ($role === 'moderator') {
-                        header('Location: App/moderator/review.php');
+                        header('Location: App/moderator/');
                     } else {
-                        header('Location: App/admin/index.php');
+                        header('Location: App/admin/');
                     }
                     exit;
                 }

@@ -38,7 +38,7 @@ $mysqli->close();
         <a class="btn" href="users.php">Users</a>
         <a class="btn" href="portfolios.php">Portfolios</a>
         <a class="btn" href="moderation.php">Moderation</a>
-        <form method="post" action="/auth/logout.php" style="display:inline">
+        <form method="post" action="../auth/logout.php" style="display:inline">
           <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(admin_csrf()) ?>">
           <button class="btn ghost" type="submit">Logout</button>
         </form>

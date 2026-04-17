@@ -1,7 +1,7 @@
 <?php
 // admin/_auth.php
 session_start();
-require_once __DIR__ . '/../db_connect.php';
+require_once __DIR__ . '/../DB/db_connect.php';
 
 // Simple admin guard
 if (empty($_SESSION['user_id']) || ($_SESSION['user_role'] ?? '') !== 'admin') {

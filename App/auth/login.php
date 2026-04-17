@@ -32,9 +32,9 @@ if (!empty($_SESSION['user_id'])) {
     if ($role === 'student') {
         header('Location: ../student/dashboard.php');
     } elseif ($role === 'recruiter') {
-        header('Location: ../recruiter/browse.php');
+        header('Location: ../recruiter/');
     } elseif ($role === 'moderator') {
-        header('Location: ../moderator/review.php');
+        header('Location: ../moderator/');
     } else {
         header('Location: ../admin/');
     }

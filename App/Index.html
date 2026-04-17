@@ -1,0 +1,328 @@
+<?php
+// index.php
+// Clean Product Focus landing page for StudentPort
+// Place this file at your project root. Link Login/Register to your PHP auth pages.
+?>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>StudentPort — Launch Your Portfolio</title>
+  <meta name="description" content="Upload a ZIP, publish a secure portfolio link, and get discovered by recruiters." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#071025;
+      --card:#0f1724;
+      --muted:#9aa4b2;
+      --text:#eaf2fb;
+      --accent1:#34d399; /* teal */
+      --accent2:#60a5fa; /* blue */
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      --max-width:1200px;
+      --gap:20px;
+      --shadow: 0 12px 40px rgba(2,6,23,0.6);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 400px at 10% 10%, rgba(96,165,250,0.04), transparent 8%),
+        radial-gradient(700px 300px at 90% 90%, rgba(126,231,199,0.03), transparent 8%),
+        linear-gradient(180deg,#071025 0%, #07121a 100%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding:28px 18px;
+      display:flex;
+      justify-content:center;
+    }
+    .wrap{width:100%;max-width:var(--max-width);}
+
+    /* Header */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:28px;
+      position:sticky;
+      top:18px;
+      z-index:20;
+      backdrop-filter: blur(6px);
+    }
+    .brand{display:flex;gap:12px;align-items:center;text-decoration:none;color:inherit}
+    .logo{
+      width:52px;height:52px;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent1),var(--accent2));
+      display:grid;place-items:center;font-weight:800;color:#04263b;font-size:18px;box-shadow:var(--shadow);
+    }
+    nav{display:flex;gap:12px;align-items:center}
+    .nav-link{color:var(--muted);text-decoration:none;font-weight:600;padding:8px 10px;border-radius:10px}
+    .nav-link:hover{color:var(--text);background:var(--glass)}
+    .auth{display:flex;gap:10px;align-items:center}
+    .btn{
+      background:transparent;border:1px solid rgba(255,255,255,0.06);color:inherit;padding:10px 12px;border-radius:10px;cursor:pointer;font-weight:700;text-decoration:none;
+    }
+    .btn.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#04263b;border:none;box-shadow:0 8px 24px rgba(96,165,250,0.08)}
+
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:var(--gap);
+      align-items:center;
+      margin-bottom:32px;
+    }
+    .hero-card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:var(--radius);
+      padding:36px;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    h1{margin:0 0 12px 0;font-size:clamp(28px,4vw,40px);letter-spacing:-0.02em}
+    p.lead{margin:0 0 18px 0;color:var(--muted);font-size:1.05rem}
+    .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+
+    /* Features */
+    .features{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+      margin:28px 0;
+    }
+    .feature{
+      background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+      padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);
+      display:flex;flex-direction:column;gap:10px;
+    }
+    .feature .icon{
+      width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent2),var(--accent1));display:grid;place-items:center;font-weight:800;color:#04263b;
+    }
+    .feature h3{margin:0;font-size:1.05rem}
+    .feature p{margin:0;color:var(--muted);font-size:0.95rem}
+
+    /* How it works */
+    .how{
+      display:flex;
+      gap:14px;
+      margin-bottom:28px;
+      align-items:stretch;
+      flex-wrap:wrap;
+    }
+    .step{
+      flex:1;min-width:220px;background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);
+    }
+    .step h4{margin:0 0 8px 0}
+    .step p{margin:0;color:var(--muted)}
+
+    /* Roles */
+    .roles{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      margin-bottom:28px;
+    }
+    .role{background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);padding:14px;border-radius:10px;border:1px solid rgba(255,255,255,0.02);text-align:center}
+    .role h5{margin:6px 0 6px 0}
+    .role p{margin:0;color:var(--muted);font-size:0.9rem}
+
+    /* Testimonials */
+    .testimonials{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
+    .testimonial{flex:1;min-width:240px;background:var(--card);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.02)}
+    .testimonial p{margin:8px 0 0 0;color:var(--muted)}
+
+    /* Footer */
+    footer{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:0.95rem;padding-top:18px;border-top:1px solid rgba(255,255,255,0.02);flex-wrap:wrap;gap:12px}
+
+    /* Small */
+    .small{font-size:0.9rem;color:var(--muted)}
+
+    /* Responsive */
+    @media (min-width:980px){
+      .hero{grid-template-columns:1fr 420px}
+      .hero-card{padding:36px}
+    }
+    @media (max-width:980px){
+      .features{grid-template-columns:repeat(2,1fr)}
+      .roles{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:560px){
+      header{flex-direction:column;align-items:flex-start;gap:12px}
+      .features{grid-template-columns:1fr}
+      .roles{grid-template-columns:1fr}
+      .hero{grid-template-columns:1fr}
+    }
+
+    a:focus,button:focus,input:focus{outline:3px solid rgba(96,165,250,0.12);outline-offset:3px}
+  </style>
+</head>
+<body>
+  <div class="wrap" role="main">
+    <header>
+      <a class="brand" href="/" aria-label="StudentPort home">
+        <div class="logo">SP</div>
+        <div>
+          <div style="font-weight:800">StudentPort</div>
+          <div class="small">Host • Share • Get Hired</div>
+        </div>
+      </a>
+
+      <nav aria-label="Primary navigation">
+        <a class="nav-link" href="#features">Features</a>
+        <a class="nav-link" href="#how">How it Works</a>
+        <a class="nav-link" href="#testimonials">Testimonials</a>
+      </nav>
+
+      <div class="auth" aria-hidden="false">
+        <a class="btn" href="auth/login.php">Login</a>
+        <a class="btn primary" href="auth/register.php">Register</a>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-card" aria-hidden="false">
+        <h1 id="hero-title">Launch your portfolio. Get discovered.</h1>
+        <p class="lead">Upload a ZIP, publish a secure link, and share it with recruiters — fast and moderated.</p>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <a class="btn primary" href="/upload.php" role="button">Upload ZIP</a>
+          <a class="btn" href="/recruiter/browse.php" role="button">Browse as Recruiter</a>
+        </div>
+
+        <div style="margin-top:14px;color:var(--muted);font-size:0.95rem">
+          <strong>Accepted:</strong> .zip • <strong>Max:</strong> 50MB • <strong>Visibility:</strong> Public / Private link / Recruiter-only
+        </div>
+      </div>
+
+      <!-- Lightweight illustration block (no preview) -->
+      <aside style="display:flex;align-items:center;justify-content:center">
+        <div style="width:420px;background:linear-gradient(135deg, rgba(96,165,250,0.06), rgba(126,231,199,0.04));border-radius:14px;padding:28px;border:1px solid rgba(255,255,255,0.02);box-shadow:var(--shadow)">
+          <svg width="100%" height="160" viewBox="0 0 600 160" fill="none" aria-hidden="true" focusable="false" role="img">
+            <rect x="8" y="8" width="584" height="144" rx="12" fill="url(#g)"/>
+            <defs>
+              <linearGradient id="g" x1="0" x2="1">
+                <stop offset="0" stop-color="rgba(96,165,250,0.08)"/>
+                <stop offset="1" stop-color="rgba(126,231,199,0.06)"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div style="margin-top:12px;color:var(--muted);font-size:0.95rem;text-align:center">Fast, secure static hosting for student portfolios</div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="features" aria-label="Key features">
+      <div class="feature" role="article">
+        <div class="icon" aria-hidden="true">ZIP</div>
+        <h3>Simple ZIP Upload</h3>
+        <p>Students upload a single ZIP. Our pipeline unpacks, scans, validates, and publishes a static site.</p>
+      </div>
+
+      <div class="feature" role="article">
+        <div class="icon" aria-hidden="true">HR</div>
+        <h3>Recruiter Tools</h3>
+        <p>Search by skills, college, tags; shortlist candidates and export CSVs for hiring workflows.</p>
+      </div>
+
+      <div class="feature" role="article">
+        <div class="icon" aria-hidden="true">SH</div>
+        <h3>Moderation & Safety</h3>
+        <p>Automated content checks plus moderator review to keep the platform safe and professional.</p>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how" class="how" aria-label="How it works">
+      <div class="step" role="article">
+        <h4>1. Upload ZIP</h4>
+        <p>Drag & drop your static portfolio ZIP or use the upload form after signing in.</p>
+      </div>
+      <div class="step" role="article">
+        <h4>2. Scan & Validate</h4>
+        <p>We scan for malware, validate static assets, and sandbox the site for safe hosting.</p>
+      </div>
+      <div class="step" role="article">
+        <h4>3. Publish & Share</h4>
+        <p>Get a secure shareable link. Recruiters can browse and shortlist candidates.</p>
+      </div>
+    </section>
+
+    <!-- Roles -->
+    <section class="roles" aria-label="Roles snapshot">
+      <div class="role" role="article">
+        <div style="font-weight:700">Student</div>
+        <h5>Upload • Publish • Share</h5>
+        <p>Manage visibility and track views of your portfolio.</p>
+      </div>
+      <div class="role" role="article">
+        <div style="font-weight:700">Recruiter</div>
+        <h5>Browse • Shortlist</h5>
+        <p>Filter by skills and export shortlists for hiring.</p>
+      </div>
+      <div class="role" role="article">
+        <div style="font-weight:700">Moderator</div>
+        <h5>Review • Enforce</h5>
+        <p>Handle flagged content and takedown requests.</p>
+      </div>
+      <div class="role" role="article">
+        <div style="font-weight:700">Admin</div>
+        <h5>Manage • Audit</h5>
+        <p>Control quotas, settings, and audit logs.</p>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials" aria-label="Testimonials">
+      <div class="testimonial" role="article">
+        <strong>“I got my internship through StudentPort.”</strong>
+        <p>— Aisha, Frontend Intern. The upload was instant and recruiters could view my live site.</p>
+      </div>
+      <div class="testimonial" role="article">
+        <strong>“Shortlisting is a breeze.”</strong>
+        <p>— Rahul, Hiring Lead. We filtered by skills and exported a shortlist in minutes.</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <a class="nav-link" href="/about.php">About</a>
+        <a class="nav-link" href="/privacy.php">Privacy</a>
+        <a class="nav-link" href="/terms.php">Terms</a>
+        <a class="nav-link" href="/contact.php">Contact</a>
+      </div>
+      <div class="small">© <strong>StudentPort</strong> <?php echo date('Y'); ?> • Built for students • Moderation enabled</div>
+    </footer>
+  </div>
+
+  <script>
+    // Minimal JS: smooth scroll for internal links and basic focus handling
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    // Optional: quick check to redirect upload to login if not authenticated (placeholder)
+    document.querySelectorAll('a[href="/upload.php"]').forEach(el=>{
+      el.addEventListener('click', (e)=>{
+        // Replace with real session check via AJAX or server-side redirect
+        // Example placeholder: allow default behavior
+      });
+    });
+  </script>
+</body>
+</html>

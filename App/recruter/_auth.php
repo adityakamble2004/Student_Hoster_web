@@ -4,36 +4,32 @@ declare(strict_types=1);
 if (session_status() === PHP_SESSION_NONE) {
     session_start([
         'cookie_httponly' => true,
-        'cookie_secure' => isset($_SERVER['HTTPS']),
+        'cookie_secure'   => isset($_SERVER['HTTPS']),
         'cookie_samesite' => 'Strict'
     ]);
 }
 
-/* ---------- AUTH CHECK ---------- */
-
-// Not logged in
 if (!isset($_SESSION['user_id'])) {
-    header('Location: /login.php');
+    header('Location: /auth/login.php');
     exit;
 }
 
-// 🔥 FIX: use user_role (not role)
-if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'student') {
+if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'recruiter') {
     http_response_code(403);
-    echo "Access denied (students only).";
+    echo "Access denied (recruiters only).";
     exit;
 }
 
 /* ---------- CSRF ---------- */
 
-function student_csrf(): string {
+function recruiter_csrf(): string {
     if (empty($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
     return $_SESSION['csrf_token'];
 }
 
-function verify_student_csrf(?string $token): bool {
+function verify_recruiter_csrf(?string $token): bool {
     return isset($_SESSION['csrf_token']) &&
            is_string($token) &&
            hash_equals($_SESSION['csrf_token'], $token);

@@ -87,13 +87,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     // Redirect based on role
                     if ($role === 'student') {
-                        header('Location: App/student/');
+                        header('Location: ../student');
                     } elseif ($role === 'recruiter') {
-                        header('Location: App/recruiter/');
+                        header('Location: ../recruiter');
                     } elseif ($role === 'moderator') {
-                        header('Location: App/moderator/');
+                        header('Location: ../moderator');
                     } else {
-                        header('Location: App/admin/');
+                        header('Location: ../admin');
                     }
                     exit;
                 }
